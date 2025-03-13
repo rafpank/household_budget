@@ -1,1 +1,7 @@
-takie 23.5
+id,type,description,value
+1,Expense,Kurtka na wacie,89.0
+2,Income,Sprzedaż mebli,415.0
+3,Income,Pierwszy przychód,13999.0
+4,Income,Drugi przychód,2452.0
+5,Expense,pierwszy wydatek,215.0
+6,Expense,Drugi wydatek,555.0
