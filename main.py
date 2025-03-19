@@ -23,15 +23,12 @@ class Transaction:
     
 
     def __eq__(self, other: "Transaction") -> bool:
-        """Sprawdza, czy wartości transakcji są równe."""
         return self.value == other.value
 
     def __gt__(self, other: "Transaction") -> bool:
-        """Sprawdza, czy dana transakcja jest większa od innej."""
         return self.value > other.value
 
     def __lt__(self, other: "Transaction") -> bool:
-        """Sprawdza, czy dana transakcja jest mniejsza od innej."""
         return self.value < other.value
 
     @staticmethod
@@ -57,6 +54,21 @@ class Transaction:
     def total_value(transactions: List["Transaction"]) -> float:
         """Zwraca sumę wartości dla listy transakcji."""
         return sum(transaction.value for transaction in transactions)
+    
+
+    @staticmethod
+    def compare_expenses_vs_income(transactions: List["Transaction"]) -> str:
+        """Porównuje sumę wydatków i przychodów."""
+        sum_income = Transaction.total_value([t for t in transactions if isinstance(t, Income)])
+        sum_expense = Transaction.total_value([t for t in transactions if isinstance(t, Expense)])
+
+        if sum_income > sum_expense:
+            return f"\nPrzychody ({sum_income:.2f} PLN) są większe od wydatków ({sum_expense:.2f} PLN)."
+        elif sum_income < sum_expense:
+            return f"\nWydatki ({sum_expense:.2f} PLN) są większe od przychodów ({sum_income:.2f} PLN)."
+        else:
+            return f"\nPrzychody i wydatki są równe ({sum_income:.2f} PLN)."
+
         
 
     @classmethod
@@ -140,6 +152,8 @@ def display_transactions(transactions: List[Transaction]) -> None:
     sum_expense = Transaction.total_value([t for t in transactions if isinstance(t, Expense)])
     print(f"\nSuma przychodów: {sum_income:.2f} PLN")
     print(f"Suma wydatków: {sum_expense:.2f} PLN")
+    print()
+    print(Transaction.compare_expenses_vs_income(transactions))
 
                    
 def select_transaction(transactions: List[Transaction], action: str) -> Optional[Transaction]:
@@ -269,14 +283,11 @@ def main():
 
         elif user_choice == 6:
             save_transaction_to_csv(transactions)
-
-
-            
+  
         
         elif user_choice == 7:
             break
 
-    
 
 if __name__ == '__main__':
     main()
