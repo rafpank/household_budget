@@ -11,7 +11,7 @@ class Transaction:
         Transaction.next_id += 1  
         self.description = description
         self.value = value
-        self.type = self.__class__.__name__
+        self.type_ = self.__class__.__name__
 
 
     def __str__(self):
